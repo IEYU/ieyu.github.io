@@ -186,7 +186,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-08-18 21:54:50 / Modified: 23:07:54" itemprop="dateCreated datePublished" datetime="2021-08-18T21:54:50-07:00">2021-08-18</time>
+      <time title="Created: 2021-08-18 21:54:50 / Modified: 23:19:19" itemprop="dateCreated datePublished" datetime="2021-08-18T21:54:50-07:00">2021-08-18</time>
     </span>
 
   
@@ -203,88 +203,14 @@
 <blockquote>
 <p>PS: totally my own experience, from a beginner perspective</p>
 </blockquote>
-<h2 id="What-I-had"><a href="#What-I-had" class="headerlink" title="What I had"></a>What I had</h2><p>I had a web app built using <b>Python3</b> and the <b>Flask framework</b> on a mac device. It contains multiple <b>HTML</b> and <b>CSS</b> files and is fully functional on local host.</p>
-<h2 id="Things-to-have-before-starting"><a href="#Things-to-have-before-starting" class="headerlink" title="Things to have before starting"></a>Things to have before starting</h2><ul>
-<li>adomain</li>
-<li>a server hosting account<blockquote>
-<p>I got both from Godaddy and I’m using the Economy Linux Hosting with cPanel plan</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="The-acutal-process-2021-version"><a href="#The-acutal-process-2021-version" class="headerlink" title="The acutal process (2021 version)"></a>The acutal process (2021 version)</h2><blockquote>
-<p>A lot of tutorials says you need to change DNA setting and etc. but I later found out that Godaddy automatically does it for you when you set up your server hosting account so don’t worry about it.</p>
-</blockquote>
-<ol>
-<li> Account &gt; My product &gt; Web Hosting &gt; Manage</li>
-<li> Change Password in settings on the right</li>
-<li> click cPanel admin</li>
-<li> scroll down and go to “setup Python App”</li>
-<li> create application</li>
-<li>fill the fields:<br> <strong>Python version:</strong> latest<br> <strong>Application root:</strong> name for folder that you will put all your files in later<br> <strong>Application URL</strong> link to your website (can leave it blank)<br> <strong>Application startup file:</strong> leave blank for now<br> <strong>Application Entry point:</strong> leave blank for now<br> <strong>Passenger log file:</strong> the log file (I prefer doing “your app root”/log.txt)</li>
-<li> create</li>
-<li>now you can leave cpanel and go to the root folder where you save all your files</li>
-<li> add a requirements.txt file and put down all the packages you’ve used in making your web app<blockquote>
-<p>since I used only Flask, I wrote down only ‘Flask’ in the txt file</p>
-</blockquote>
-</li>
-<li> compress the root folder that contains all you files including the requirements.txt you just created</li>
-<li>now go back to cPanel and go to file manager</li>
-<li>you should be able to see a folder with the name you entered for “application root” in the previous step. If not, reload the page</li>
-<li>go into this folder and click upload to upload the zip file</li>
-<li>once you’ve uploaded it and can see it in your root folder, you can extract it </li>
-<li>you will notice a new folder in your root folder. </li>
-<li>go into this folder &gt; select all the files &gt; move them up one level so that they are all directly accessible from your root folder </li>
-<li>in the root folder there is a file called “passenger_wsgi.py”, click edit it</li>
-<li>replace everything inside with<br><code>from your-app import app-name as app-name</code><br>where<ul>
-<li><code>your-app</code> is the name of your_app.py file</li>
-<li><code>app-name</code> is something of <code>something = Flask(__name__)</code> in your_app.py</li>
-<li><code>app-name</code> can be anything you want to call it (or keep it the same as the app name)</li>
-</ul>
-</li>
-<li>save changes and close it</li>
-<li>go back to setup Python App and edit your web app</li>
-<li>replace the field of Application startup file with “your_app.py”</li>
-<li>replace the “passenger_wsgi.py” in Application Entry point with the <code>app-name</code> from step 17</li>
-<li>save your web app</li>
-<li>scroll down to configuration files and type in “requirements.txt”, add</li>
-<li>stop your app and click run pip install in the configuration section<blockquote>
-<p>if your don’t stop your app before running pip install you might get an error</p>
-</blockquote>
-</li>
-<li>scroll up to application URL and click open</li>
-<li>you should now be able to access your website!<blockquote>
-<p>if not, try clicking the restart button to refresh the page and then open the url</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="Ways-of-debugging-that-I’ve-tried"><a href="#Ways-of-debugging-that-I’ve-tried" class="headerlink" title="Ways of debugging that I’ve tried"></a>Ways of debugging that I’ve tried</h2><p><strong>1. test with a simple app</strong></p>
-<blockquote>
-<p>there’s a bunch of youtube videos that teach how to do this</p>
-</blockquote>
-<ol>
-<li>Account &gt; My product &gt; Web Hosting &gt; Account Action &gt; Reset everything</li>
-<li>create a mini flask app that only returns hello world</li>
-<li>zip it with a requirement txt file and deploy it </li>
-<li>if you see a hello world page when you open the url, you are good to move on</li>
-</ol>
-<p><strong>2. check your file names</strong></p>
-<ol>
-<li>if your mini app works fine but no longer works after you add your html files, the the page you see is<blockquote>
-<p>future home for something quite cool</p>
-</blockquote>
-</li>
-</ol>
-<p>then the problem is likely to be your file names. Check if you have files named:</p>
-<ul>
-<li>home.html</li>
-</ul>
-<p>change it to something else (as well as all the redirecting stuff in your app) and restart the application. The problem should be fixed now when you open the url.</p>
-<p><strong>3. testing if it’s really the problem of your app or html files</strong><br>in your_app.py, comment out all the <code>return render_template(&#39;something.html&#39;)</code> and replace it with <code>return &#39;hello world&#39;</code>. Restart your application and open the url, if it workds, your app is fine.</p>
-<p><strong>4. reset</strong><br>If nothing looks wrong but the app just doesn’t work, try reset your server hosting account and try everything again.</p>
-<ul>
-<li>Account &gt; Manage product &gt; Web Hosting &gt; Account Actions &gt; Reset</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/18/Flask-Cpanel/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
